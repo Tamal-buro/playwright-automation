@@ -3,15 +3,19 @@ import LandingPage from '../pages/landingPage';
 import PaymentMode from '../pages/payment_mode';
 import ChargebeeUtlis from '../utils/chargebee-utils';
 
-let userEmail;
+let userEmail = 'sb-msvw58545680@mailinator.com';
 
 test.describe('Buy Digital + Print Offer', () => {
-    
-    test('Pay with Paypal', async ({ page }) => {
+
+    // test.afterAll(async ({page,request}) => {
+    //     await page.debug()
+    //     await chargebeeUtlis.cleanChargebeeTestDtata(userEmail, request)
+    // })
+
+    test('Pay with Paypal', async ({ page, request }) => {
         const landingPage = new LandingPage(page)
         const paymentMode = new PaymentMode(page)
         const chargebeeUtlis = new ChargebeeUtlis()
-        userEmail = 'sb-msvw58545680@mailinator.com';
         selectors.setTestIdAttribute('data-cy');
         await landingPage.navigate(page);
         test.slow();
@@ -55,8 +59,45 @@ test.describe('Buy Digital + Print Offer', () => {
         await paypalPage.getByRole('button', { name: 'Agree & Continue', exact: true }).click();
         await page.getByRole('button', { name: 'No thanks, continue', exact: true }).click();
         await page.getByRole('button', { name: 'Save and continue', exact: true }).click();
-        await expect(page.getByText(/Paypal Express Checkout/i)).toBeTruthy();
+        expect(page.getByText(/Paypal Express Checkout/i)).toBeTruthy();
+        //await chargebeeUtlis.cleanChargebeeTestDtata(userEmail, request)
 
-        await chargebeeUtlis.cleanChargebeeTestDtata(userEmail)
     });
+
+    test('CharegbeeDelete', async ({ request }) => {
+        const pass = '';
+        const authHeader = `Basic ${Buffer.from(`${'test_H8qd4n9r60iiNB5kjDItE2LymaHjYH7Q'}:${pass}`).toString(
+            'base64'
+        )}`;
+
+        debugger
+        const getUrl = `https://condenast-staging-test.chargebee.com/api/v2/customers?email[is]=${userEmail}&limit=1`;
+        const getResponse = await request.get(getUrl, {
+            headers: {
+                Authorization: authHeader,
+            },
+        });
+        // expect(getResponse.status).toBe(200);
+        const data = await getResponse.json();
+        console.log(getResponse)
+
+        if (data.list.length > 0) {
+            const customerId = data.list[0].customer.id;
+            console.log(`Customer ID: ${customerId}`);
+
+            const deleteUrl = `https://condenast-staging-test.chargebee.com/api/v2/customers/${customerId}/delete`;
+
+            const deleteResponse = await fetch(deleteUrl, {
+                method: 'POST',
+                headers: {
+                    Authorization: authHeader,
+                },
+            });
+
+            // expect(deleteResponse.status).toBe(200);
+        } else {
+            console.log(`No customer found with email: ${email}`);
+        }
+    })
+
 });

@@ -12,11 +12,10 @@ const authHeader = `Basic ${Buffer.from(`${'test_H8qd4n9r60iiNB5kjDItE2LymaHjYH7
 )}`;
 
 export default class ChargebeeUtlis {
-    deleteChargebeeCustomerData = async (page, customerEmail) => {
+    deleteChargebeeCustomerData = async (page, customerEmail, request) => {
         debugger
         const getUrl = `${chargebeeBaseUrl()}/api/v2/customers?email[is]=${customerEmail}&limit=1`;
-        const getResponse = await fetch(getUrl, {
-            method: 'GET',
+        const getResponse = await request.get(getUrl, {
             headers: {
                 Authorization: authHeader,
             },
@@ -68,8 +67,8 @@ export default class ChargebeeUtlis {
         // });
     };
 
-    cleanChargebeeTestDtata = (page, email) => {
-        this.deleteChargebeeCustomerData(email);
+    cleanChargebeeTestDtata = (page, email, request) => {
+        this.deleteChargebeeCustomerData(email, request);
     };
 }
 
