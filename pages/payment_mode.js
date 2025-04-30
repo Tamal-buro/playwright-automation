@@ -1,19 +1,22 @@
 export default class PaymentMode {
-    selectPaypal = async (page) => {
-        await page
+    constructor(page) {
+        this.page = page;
+    }
+    selectPaypal = async () => {
+        await this.page
             .locator('section')
             .filter({ hasText: 'Unlimited Digital + Print Access' })
             .getByRole('button')
             .click();
     }
 
-    payPal = async (page) => {
-        await page.getByRole('button', { name: 'PAY WITH', exact: true }).click();
+    payPal = async () => {
+        await this.page.getByRole('button', { name: 'PAY WITH', exact: true }).click();
     }
 
-    purchaseThroughPayPal = async (page, userEmail) => {
-        const paypalPopupPromise = page.waitForEvent('popup');
-        await page
+    purchaseThroughPayPal = async (userEmail) => {
+        const paypalPopupPromise = this.page.waitForEvent('popup');
+        await this.page
             .frameLocator('iframe[name^="__zoid__paypal_buttons"]')
             .getByRole('link', { name: 'PayPal' })
             .click({delay: 2000});
@@ -42,11 +45,7 @@ export default class PaymentMode {
         //   ).toBeVisible({ timeout: 10000 });
 
         await paypalPage.getByRole('button', { name: 'Agree & Continue', exact: true }).click()
-        await page.getByRole('button', { name: 'No thanks, continue', exact: true }).click();
-        await page.getByRole('button', { name: 'Save and continue', exact: true }).click();
+        await this.page.getByRole('button', { name: 'No thanks, continue', exact: true }).click();
+        await this.page.getByRole('button', { name: 'Save and continue', exact: true }).click();
     }
-
-
 }
-
-const paymentMode = new PaymentMode();

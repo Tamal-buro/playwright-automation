@@ -1,8 +1,9 @@
 export default class LandingPage {
-    navigate = async (page) => {
-        await page.goto('https://stg.newyorker.com/v2/offers/tny-ppu-demo');
+    constructor(page) {
+        this.page = page;
+    }
+    navigate = async () => {
+        await this.page.goto('https://stg.newyorker.com/v2/offers/tny-ppu-demo');
         return this
     }
 }
-
-export const landingPage = new LandingPage();
