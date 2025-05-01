@@ -20,4 +20,3 @@ export async function completePaypalPurchase({ page, userEmail, brand }) {
     // verify after paypal purchase
     await successPage.verifySuccessPage();
 }
-
