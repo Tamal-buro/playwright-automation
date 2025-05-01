@@ -2,8 +2,8 @@ export default class LandingPage {
     constructor(page) {
         this.page = page;
     }
-    navigate = async () => {
-        await this.page.goto('https://stg.newyorker.com/v2/offers/tny-ppu-demo');
+    navigate = async (brand) => {
+        await this.page.goto(`${brand.baseUrl}/v2/offers/${brand.pageId}`);
         return this
     }
 }
