@@ -44,8 +44,6 @@ export default class PaymentMode {
         //     page.getByText('You already have a subscription with this email address.')
         //   ).toBeVisible({ timeout: 10000 });
 
-        await paypalPage.getByRole('button', { name: 'Agree & Continue', exact: true }).click()
-        await this.page.getByRole('button', { name: 'No thanks, continue', exact: true }).click();
-        await this.page.getByRole('button', { name: 'Save and continue', exact: true }).click();
+        await paypalPage.getByRole('button', { name: 'Agree & Continue', exact: true }).click();
     }
 }

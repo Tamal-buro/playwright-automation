@@ -1,16 +1,34 @@
 {
-    "tnyBrand" : {
-        "tny" : {
-            "baseUrl" : "https://stg.newyorker.com",
-            "pageId" : "tny-ppu-demo",
-            "queryParams" : "?livemode=false",
-            "userEmail" : "sb-msvw58545680@mailinator.com",
+    "tnyBrand": {
+        "tny": {
+            "baseUrl": "https://stg.newyorker.com",
+            "pageId": "tny-ppu-demo",
+            "queryParams": "?livemode=false",
+            "userEmail": "sb-msvw58545680@mailinator.com",
+            "isUpSell": true,
+            "isCrossSell": false,
             "offer": {
-                "offer1" : { "status": "active", "name": "Unlimited Digital Access"},
-                "offer2" : { "status": "active", "name": "Unlimited Digital + Print Access"}
+                "offer1": {
+                    "status": "active", "name": "Unlimited Digital Access"
+                },
+                "offer2": {
+                    "status": "active", "name": "Unlimited Digital + Print Access"
+                }
             }
-
         }
     },
-    "vogueBrand" : {}
+    "vogueBrand": {
+        "vogueClub": {
+            "baseUrl": "https://stag.vogue.com",
+            "pageId": "vogue-testing",
+            "queryParams": "?livemode=false",
+            "userEmail": "sb-msvw58545680@mailinator.com",
+            "offer": {
+                "offer1": { "status": "active", "name": "Annual Access"
+                },
+                "offer2": { "status": "active", "name": "Monthly Access"
+                }
+            }
+        }
+    }
 }
