@@ -1,7 +1,7 @@
 const { test, expect, selectors } = require('@playwright/test');
-import ChargebeeUtlis from '../utils/chargebee-utils';
-import { completePaypalPurchase } from '../support/commands'
-import { tnyBrand } from '../fixtures/brands-data-stag.json'
+import ChargebeeUtlis from '../../utils/chargebee-utils';
+import { completePaypalPurchase } from '../../support/commands'
+import { tnyBrand } from '../../fixtures/brands-data-stag.json'
 
 let userEmail = tnyBrand.tny.userEmail;
 let brand = tnyBrand.tny

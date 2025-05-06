@@ -26,7 +26,7 @@ npx playwright test
 ```
 To Run specific test
 ```bash
-npx playwright test ./smart_pay.spec.js
+npx playwright test ./offer-page-tny-smart-pay.spec.js
 ```
 To Run test in UI mode
 ```bash
