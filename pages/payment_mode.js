@@ -2,10 +2,10 @@ export default class PaymentMode {
     constructor(page) {
         this.page = page;
     }
-    selectPaypal = async () => {
+    selectOffer = async (selectOffer) => {
         await this.page
             .locator('section')
-            .filter({ hasText: 'Unlimited Digital + Print Access' })
+            .filter({ hasText: selectOffer })
             .getByRole('button')
             .click();
     }

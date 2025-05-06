@@ -3,7 +3,7 @@ import LandingPage from '../pages/landingPage';
 import PaymentMode from '../pages/payment_mode';
 import SuccessPage from '../pages/successPage';
 
-export async function completePaypalPurchase({ page, userEmail, brand }) {
+export async function completePaypalPurchase({ page, userEmail, brand, selectOffer }) {
 
     const landingPage = new LandingPage(page)
     const paymentMode = new PaymentMode(page)
@@ -13,7 +13,7 @@ export async function completePaypalPurchase({ page, userEmail, brand }) {
     await landingPage.navigate(brand);
 
     // Select paypal payment mode and purchase with paypal account
-    await paymentMode.selectPaypal();
+    await paymentMode.selectOffer(selectOffer);
     await paymentMode.payPal();
     await paymentMode.purchaseThroughPayPal(userEmail);
 
