@@ -7,7 +7,7 @@ const chargebeeBaseUrl = () => {
 const pass = '';
 const chargebeeToken = process.env.CHARGEBEE_SECRET_KEY_STAG;
 
-const authHeader = `Basic ${Buffer.from(`test_H8qd4n9r60iiNB5kjDItE2LymaHjYH7Q:${pass}`).toString(
+const authHeader = `Basic ${Buffer.from(`${chargebeeToken}:${pass}`).toString(
     'base64'
 )}`;
 
