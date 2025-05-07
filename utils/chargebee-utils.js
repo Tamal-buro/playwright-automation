@@ -1,12 +1,13 @@
 const { test, expect, selectors } = require('@playwright/test');
 
 const chargebeeBaseUrl = () => {
+    // Currently runs for stag, need to make it dynamic for prod and stag
     return 'https://condenast-staging-test.chargebee.com';
 };
 const pass = '';
 const chargebeeToken = process.env.CHARGEBEE_SECRET_KEY_STAG;
 
-const authHeader = `Basic ${Buffer.from(`${chargebeeToken}:${pass}`).toString(
+const authHeader = `Basic ${Buffer.from(`test_H8qd4n9r60iiNB5kjDItE2LymaHjYH7Q:${pass}`).toString(
     'base64'
 )}`;
 
