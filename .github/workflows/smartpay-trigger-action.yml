@@ -1,7 +1,5 @@
 name: Playwright Tests
 on:
-  repository_dispatch:
-    types: [ smartpay-trigger-action ]
   workflow_dispatch:
 jobs:
   test:
