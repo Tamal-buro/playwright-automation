@@ -6,6 +6,6 @@ export default class SuccessPage {
         this.page = page;
     }
     verifySuccessPage = async () => {
-        expect(this.page.getByText(/Paypal Express Checkout/i)).toBeTruthy();
+        expect(this.page.getByText(/grewdfe4e/i)).toBeVisible();
     };
 };
