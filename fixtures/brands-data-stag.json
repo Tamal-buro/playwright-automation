@@ -2,11 +2,12 @@
     "tnyBrand": {
         "tny": {
             "baseUrl": "https://stg.newyorker.com",
-            "pageId": "tny-ppu-demo",
+            "pageId": "tny004-playwright",
             "queryParams": "?livemode=false",
             "userEmail": "sb-msvw58545680@mailinator.com",
             "isUpSell": true,
             "isCrossSell": false,
+            "optins": false,
             "offer": {
                 "offer1": {
                     "status": "active", "name": "Unlimited Digital Access"
@@ -20,7 +21,7 @@
     "vogueBrand": {
         "vogueClub": {
             "baseUrl": "https://stag.vogue.com",
-            "pageId": "vogue-testing",
+            "pageId": "vogue-tot-playwright",
             "queryParams": "?livemode=false",
             "userEmail": "sb-msvw58545680@mailinator.com",
             "offer": {
