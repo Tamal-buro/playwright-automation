@@ -24,6 +24,7 @@
             "pageId": "vogue-tot-playwright",
             "queryParams": "?livemode=false",
             "userEmail": "sb-msvw58545680@mailinator.com",
+            "optins": true,
             "offer": {
                 "offer1": { "status": "active", "name": "Annual Access"
                 },
