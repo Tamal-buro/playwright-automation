@@ -22,13 +22,12 @@ export async function completePaypalPurchase({ page, userEmail, brand, selectOff
     await paymentMode.payPal();
     await paymentMode.purchaseThroughPayPal(userEmail);
 
-    console.log("isUpSell",brand.isUpSell)
-    console.log("isCrossSell",brand.isCrossSell)
     //post purchase screen
     if(brand.isUpSell || brand.isCrossSell)
     await postPurchasePage.interactWithPpu(isUpSell, isCrossSell);
 
     // select optins
+    if(brand.optins === true)
     await optinsPage.selectOptins();
 
     // verify after paypal purchase

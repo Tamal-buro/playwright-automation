@@ -22,7 +22,7 @@ export default class ChargebeeUtlis {
         });
         expect(getResponse.status).toBe(200);
         const data = await getResponse.json();
-        console.log('Response: ', getResponse);
+        console.log('Customer API status: ', getResponse.status);
 
         if (data.list.length > 0) {
             const customerId = data.list[0].customer.id;
