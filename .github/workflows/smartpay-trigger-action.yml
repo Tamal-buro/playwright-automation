@@ -5,16 +5,42 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-    env: 
+    env:
       CHARGEBEE_SECRET_KEY_STAG: ${{secrets.CHARGEBEE_SECRET_KEY_STAG}}
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
+
+    # Cache node_modules based on package-lock.json
+    - name: Cache node dependencies
+      uses: actions/cache@v3
+      id: node-cache
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    # Install dependencies only if cache miss
     - name: Install dependencies
+      if: steps.node-cache.outputs.cache-hit != 'true'
       run: npm ci
+
+    # Cache Playwright browsers
+    - name: Cache Playwright browsers
+      uses: actions/cache@v3
+      id: playwright-cache
+      with:
+        path: ~/.cache/ms-playwright
+        key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-playwright-
+
+    # Install Playwright browsers only if cache miss
     - name: Install Playwright Browsers
+      if: steps.playwright-cache.outputs.cache-hit != 'true'
       run: npx playwright install --with-deps
     - name: Run Playwright tests
       run: npx playwright test
