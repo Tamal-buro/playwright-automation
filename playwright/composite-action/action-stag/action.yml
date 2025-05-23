@@ -38,19 +38,48 @@ runs:
         node-version: 18.16.0
         registry-url: https://registry.npmjs.org/
         cache: 'npm'
-    - run: npm ci --always-auth=true --no-optional
+    
+    # Cache node_modules based on package-lock.json
+    - name: Cache node dependencies
+      uses: actions/cache@v4
+      id: node-cache
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    
+    # Install dependencies only if cache miss
+    - name: Install dependencies
+      if: steps.node-cache.outputs.cache-hit != 'true'
       shell: bash
+      run: npm ci --always-auth=true --no-optional
       env:
         NODE_AUTH_TOKEN: ${{inputs.node_auth_token}}
     
+    # Cache Playwright browsers
+    - name: Cache Playwright browsers
+      uses: actions/cache@v4
+      id: playwright-cache
+      with:
+        path: |
+          ~/.cache/ms-playwright
+          **/node_modules/.cache/ms-playwright
+        key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-playwright-
+    
+    # Install Playwright browsers only if cache miss
     - name: Install Playwright Browsers
+      if: steps.playwright-cache.outputs.cache-hit != 'true'
       shell: bash
       run: npx playwright install --with-deps
     
     - name: Run Playwright tests
       id: playwright
       shell: bash
-      run: npx playwright test tests/${{inputs.integration_folder}} --reporter=html
+      run: |
+        npx playwright test tests/${{inputs.integration_folder}} --reporter=html
       env:
         APP_ENV: 'test_development_staging'
         CHARGEBEE_SECRET_KEY_STAG: '${{inputs.CHARGEBEE_SECRET_KEY_STAG}}'
@@ -69,12 +98,4 @@ runs:
       with:
         name: playwright-report-${{inputs.integration_folder}}-${{steps.current-time.outputs.formattedTime}}
         path: playwright-report/
-        retention-days: 3
-    
-    - name: Upload test results
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: test-results-${{inputs.integration_folder}}-${{steps.current-time.outputs.formattedTime}}
-        path: test-results/
         retention-days: 3
