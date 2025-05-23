@@ -10,7 +10,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Playwright tests
-        uses: ./tests/playwright/composite-action/action-stag
+        uses: ./playwright/composite-action/action-stag
         with:
           test_name: 'TNY Smart Pay'
           integration_folder: 'tny'
@@ -28,7 +28,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Playwright tests
-        uses: ./tests/playwright/composite-action/action-stag
+        uses: ./playwright/composite-action/action-stag
         with:
           test_name: 'Vogue Smart Pay'
           integration_folder: 'vogue'
