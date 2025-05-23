@@ -4,7 +4,7 @@ on: workflow_call
 
 jobs:
   playwright-tests-smart-pay:
-    name: smart-pay
+    name: tny
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,7 +22,7 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
   playwright-tests-payment-methods:
-    name: payment-methods
+    name: vogue
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
