@@ -50,7 +50,7 @@ runs:
     - name: Run Playwright tests
       id: playwright
       shell: bash
-      run: npx playwright test "tests/${{inputs.integration_folder}}/**/*.spec.{js,ts}" --reporter=html
+      run: npx playwright test tests/${{inputs.integration_folder}} --reporter=html
       env:
         APP_ENV: 'test_development_staging'
         CHARGEBEE_SECRET_KEY_STAG: '${{inputs.CHARGEBEE_SECRET_KEY_STAG}}'
