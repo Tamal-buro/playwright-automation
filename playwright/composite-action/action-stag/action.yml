@@ -54,6 +54,3 @@ runs:
       env:
         APP_ENV: 'test_development_staging'
         CHARGEBEE_SECRET_KEY_STAG: '${{inputs.CHARGEBEE_SECRET_KEY_STAG}}'
-        USER_PLATFORM_GATEWAY_API_KEY_STAG: '${{inputs.USER_PLATFORM_GATEWAY_API_KEY_STAG}}'
-        X_CLIENT_KEY_STAG: '${{inputs.X_CLIENT_KEY_STAG}}'
-
