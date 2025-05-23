@@ -1,0 +1,40 @@
+name: Playwright Staging Tests
+
+on: workflow_call
+
+jobs:
+  playwright-tests-smart-pay:
+    name: smart-pay
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Playwright tests
+        uses: ./tests/playwright/composite-action/action-stag
+        with:
+          test_name: 'TNY Smart Pay'
+          integration_folder: 'tny'
+          node_auth_token: ${{secrets.NPM_TOKEN}}
+          datadog_api_key: ${{secrets.DATADOG_API_KEY}}
+          CHARGEBEE_SECRET_KEY_STAG: '${{secrets.CYPRESS_CHARGEBEE_SECRET_KEY_STAG}}'
+          USER_PLATFORM_GATEWAY_API_KEY_STAG: '${{secrets.CYPRESS_USER_PLATFORM_GATEWAY_API_KEY_STAG}}'
+          X_CLIENT_KEY_STAG: '${{secrets.CYPRESS_X_CLIENT_KEY_STAG}}'
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  playwright-tests-payment-methods:
+    name: payment-methods
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Playwright tests
+        uses: ./tests/playwright/composite-action/action-stag
+        with:
+          test_name: 'Vogue Smart Pay'
+          integration_folder: 'vogue'
+          node_auth_token: ${{secrets.NPM_TOKEN}}
+          datadog_api_key: ${{secrets.DATADOG_API_KEY}}
+          CHARGEBEE_SECRET_KEY_STAG: '${{secrets.CYPRESS_CHARGEBEE_SECRET_KEY_STAG}}'
+          USER_PLATFORM_GATEWAY_API_KEY_STAG: '${{secrets.CYPRESS_USER_PLATFORM_GATEWAY_API_KEY_STAG}}'
+          X_CLIENT_KEY_STAG: '${{secrets.CYPRESS_X_CLIENT_KEY_STAG}}'
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

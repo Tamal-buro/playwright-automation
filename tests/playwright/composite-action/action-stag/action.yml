@@ -1,0 +1,59 @@
+name: 'Playwright Tests'
+description: 'GitHub Action for running Playwright end-to-end tests'
+inputs:
+  test_name:
+    description: 'Name of the running test'
+    required: true
+  integration_folder:
+    description: 'Path of project to run'
+    required: true
+  node_auth_token:
+    description: 'NPM Authentication Token'
+    required: true
+  datadog_api_key:
+    description: 'Datadog API Key for sending metrics'
+    required: true
+  CHARGEBEE_SECRET_KEY_STAG:
+    description: 'Chargebee secret key'
+    required: true
+  USER_PLATFORM_GATEWAY_API_KEY_STAG:
+    description: 'Chargebee user platform gateway key'
+    required: true
+  X_CLIENT_KEY_STAG:
+    description: 'User platform client key'
+    required: true
+  SLACK_WEBHOOK_URL:
+    description: 'Slack URL of the channel where the test results are published'
+    required: true
+  AIO_SECRET_KEY:
+    description: 'AIO platform client key'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Dependencies
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18.16.0
+        registry-url: https://registry.npmjs.org/
+        cache: 'npm'
+    - run: npm ci --always-auth=true --no-optional
+      shell: bash
+      env:
+        NODE_AUTH_TOKEN: ${{inputs.node_auth_token}}
+    
+    - name: Install Playwright Browsers
+      shell: bash
+      run: npx playwright install --with-deps
+    
+    - name: Run Playwright tests
+      id: playwright
+      shell: bash
+      run: npx playwright test tests/playwright/integration/${{inputs.integration_folder}} --reporter=html
+      env:
+        APP_ENV: 'test_development_staging'
+        CHARGEBEE_SECRET_KEY_STAG: '${{inputs.CHARGEBEE_SECRET_KEY_STAG}}'
+        USER_PLATFORM_GATEWAY_API_KEY_STAG: '${{inputs.USER_PLATFORM_GATEWAY_API_KEY_STAG}}'
+        X_CLIENT_KEY_STAG: '${{inputs.X_CLIENT_KEY_STAG}}'
+
