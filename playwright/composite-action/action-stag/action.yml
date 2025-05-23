@@ -54,3 +54,27 @@ runs:
       env:
         APP_ENV: 'test_development_staging'
         CHARGEBEE_SECRET_KEY_STAG: '${{inputs.CHARGEBEE_SECRET_KEY_STAG}}'
+      
+    - name: Get current time
+      if: always()
+      uses: josStorer/get-current-time@v2
+      id: current-time
+      with:
+        format: YYYYMMDD-HH
+        utcOffset: '+05:30'
+    
+    - name: Upload HTML report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: playwright-report-${{inputs.integration_folder}}-${{steps.current-time.outputs.formattedTime}}
+        path: playwright-report/
+        retention-days: 3
+    
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results-${{inputs.integration_folder}}-${{steps.current-time.outputs.formattedTime}}
+        path: test-results/
+        retention-days: 3
