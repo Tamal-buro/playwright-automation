@@ -59,7 +59,7 @@ npx playwright test --ui
 ```bash
 npx playwright show-report
 ```
-### Environment Variables
+### Environment Variables 
 
 Following Environment Vars should be set before running the tests
 

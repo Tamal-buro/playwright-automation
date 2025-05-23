@@ -7,7 +7,7 @@
             "userEmail": "sb-msvw58545680@mailinator.com",
             "isUpSell": true,
             "isCrossSell": false,
-            "optins": false,
+            "optins": true,
             "offer": {
                 "offer1": {
                     "status": "active", "name": "Unlimited Digital Access"

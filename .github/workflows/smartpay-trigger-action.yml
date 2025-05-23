@@ -15,7 +15,7 @@ jobs:
 
     # Cache node_modules based on package-lock.json
     - name: Cache node dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       id: node-cache
       with:
         path: node_modules
@@ -30,10 +30,12 @@ jobs:
 
     # Cache Playwright browsers
     - name: Cache Playwright browsers
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       id: playwright-cache
       with:
-        path: ~/.cache/ms-playwright
+        path: |
+          ~/.cache/ms-playwright
+          **/node_modules/.cache/ms-playwright
         key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-playwright-
