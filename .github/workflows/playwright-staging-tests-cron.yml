@@ -1,0 +1,23 @@
+name: Playwright Staging Tests Scheduled
+
+on:
+  push:
+  workflow_dispatch: # allowing manual triggering
+    inputs:
+      test_suite:
+        description: 'Select test suite to run'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - smart-pay
+          - payment-methods
+
+jobs:
+  # --------------------------
+  # Playwright tests on staging
+  # --------------------------
+  playwright-tests:
+    uses: ./.github/workflows/playwright-staging-tests.yml
+    secrets: inherit

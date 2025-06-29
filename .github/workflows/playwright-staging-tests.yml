@@ -1,0 +1,32 @@
+name: Playwright Staging Tests
+
+on: workflow_call
+
+jobs:
+  playwright-tests-smart-pay:
+    name: tny
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Playwright tests
+        uses: ./playwright/composite-action/action-stag
+        with:
+          test_name: 'TNY Smart Pay'
+          integration_folder: 'tny'
+          node_auth_token: ${{secrets.NPM_TOKEN}}
+          CHARGEBEE_SECRET_KEY_STAG: '${{secrets.CHARGEBEE_SECRET_KEY_STAG}}'
+
+  playwright-tests-payment-methods:
+    name: vogue
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Playwright tests
+        uses: ./playwright/composite-action/action-stag
+        with:
+          test_name: 'Vogue Smart Pay'
+          integration_folder: 'vogue'
+          node_auth_token: ${{secrets.NPM_TOKEN}}
+          CHARGEBEE_SECRET_KEY_STAG: '${{secrets.CHARGEBEE_SECRET_KEY_STAG}}'
